@@ -1,0 +1,23 @@
+!!!
+%html
+  %head
+    %title StartingStrength
+    = stylesheet_link_tag    'application', media: 'all'
+    = javascript_include_tag 'application'
+    = csrf_meta_tags
+
+  %body
+    %header
+      %p.notice= notice
+      %p.alert= alert
+
+      - if current_user.present?
+        = link_to "signout", destroy_user_session_path
+      - else
+        = link_to "signup", new_user_registration_path
+
+    %main
+      = yield
+
+    %footer
+      2015
