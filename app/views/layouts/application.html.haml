@@ -11,10 +11,13 @@
       %p.notice= notice
       %p.alert= alert
 
+      = link_to "home", "/"
+
       - if current_user.present?
         = link_to "signout", destroy_user_session_path
       - else
         = link_to "signup", new_user_registration_path
+        = link_to "signin", new_user_session_path
 
     %main
       = yield
