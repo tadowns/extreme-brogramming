@@ -13,4 +13,7 @@
 #
 
 class Exercise < ActiveRecord::Base
+  belongs_to :workout
+  belongs_to :workout_exercise
+  has_many :workout_sets, dependent: :destroy
 end

@@ -28,16 +28,6 @@ ActiveRecord::Schema.define(version: 20150722012036) do
   add_index "exercises", ["workout_exercise_id"], name: "index_exercises_on_workout_exercise_id", using: :btree
   add_index "exercises", ["workout_id"], name: "index_exercises_on_workout_id", using: :btree
 
-  create_table "sets", force: :cascade do |t|
-    t.integer  "exercise_id"
-    t.integer  "reps"
-    t.float    "weight"
-    t.datetime "start_time"
-    t.datetime "end_time"
-  end
-
-  add_index "sets", ["exercise_id"], name: "index_sets_on_exercise_id", using: :btree
-
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -65,6 +55,16 @@ ActiveRecord::Schema.define(version: 20150722012036) do
 
   add_index "workout_exercises", ["exercise_type_id"], name: "index_workout_exercises_on_exercise_type_id", using: :btree
   add_index "workout_exercises", ["workout_type_id"], name: "index_workout_exercises_on_workout_type_id", using: :btree
+
+  create_table "workout_sets", force: :cascade do |t|
+    t.integer  "exercise_id"
+    t.integer  "reps"
+    t.float    "weight"
+    t.datetime "start_time"
+    t.datetime "end_time"
+  end
+
+  add_index "workout_sets", ["exercise_id"], name: "index_workout_sets_on_exercise_id", using: :btree
 
   create_table "workout_types", force: :cascade do |t|
     t.string "name"

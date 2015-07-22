@@ -15,4 +15,6 @@
 #
 
 class WorkoutExercise < ActiveRecord::Base
+  belongs_to :workout_type
+  belongs_to :exercise_type
 end
