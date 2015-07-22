@@ -15,6 +15,9 @@
 #
 
 class Workout < ActiveRecord::Base
+  belongs_to :user
   belongs_to :workout_type
   has_many :exercises, dependent: :destroy
+
+  delegate :name, to: :workout_type
 end

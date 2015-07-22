@@ -1,12 +1,12 @@
 !!!
 %html
   %head
-    %title StartingStrength
-    = stylesheet_link_tag    'application', media: 'all'
-    = javascript_include_tag 'application'
+    %title Starting Strength
+    = stylesheet_link_tag '//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css'
+    = stylesheet_link_tag 'application', media: 'all'
     = csrf_meta_tags
 
-  %body
+  %body{ class: body_class }
     %header
       %p.notice= notice
       %p.alert= alert
@@ -24,3 +24,5 @@
 
     %footer
       2015
+
+    = javascript_include_tag 'application'
