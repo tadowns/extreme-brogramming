@@ -1,1 +1,13 @@
-Dashboard
+.pure-g
+  .pure-u-1
+    .contain
+      %h1 Dashboard
+
+      %h3 Recent Workouts
+
+      %ul
+        - if @workouts.present?
+          - @workouts.each do |workout|
+            %li= workout.name
+        - else
+          %li No Workouts Yet!
