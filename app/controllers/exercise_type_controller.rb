@@ -1,6 +1,6 @@
 class ExerciseTypeController < ActionController::Base
   expose(:exercise_types)
-  def index
 
+  def index
   end
 end
