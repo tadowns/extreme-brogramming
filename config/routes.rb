@@ -6,4 +6,6 @@ Rails.application.routes.draw do
   end
 
   root 'pages#home'
+
+  resources :exercise_type
 end
