@@ -6,11 +6,11 @@
   %h3 What type of workout are you doing?
   %p
     Click one to begin tracking your workout
-    = link_to 'add workout', '#'
+    = link_to 'add workout', new_workout_type_path
 
   %ul
-    %li Stronglifts Day A
-    %li Stronglifts Day B
+    - workout_types.each do |wt|
+      %li= wt.name
 
   %hr
 
