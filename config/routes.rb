@@ -9,5 +9,6 @@ Rails.application.routes.draw do
 
   root 'pages#home'
 
-  resources :exercise_type
+  resources :exercise_types
+  resources :workout_types
 end

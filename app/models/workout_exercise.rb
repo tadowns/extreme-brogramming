@@ -15,6 +15,6 @@
 #
 
 class WorkoutExercise < ActiveRecord::Base
-  belongs_to :workout_type
+  belongs_to :workout_type, inverse_of: :workout_exercises
   belongs_to :exercise_type
 end
