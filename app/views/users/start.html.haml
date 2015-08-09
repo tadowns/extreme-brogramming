@@ -1,0 +1,31 @@
+.contain
+  %h1 Start a Workout
+
+  %hr
+
+  %h3 What type of workout are you doing?
+  %p
+    Click one to begin tracking your workout
+    = link_to 'add workout', '#'
+
+  %ul
+    %li Stronglifts Day A
+    %li Stronglifts Day B
+
+  %hr
+
+  %h3 Recent Workouts
+  %p Resume a workout, or manage recent workout sessions.
+
+  %table
+    %thead
+      %tr
+        %td Date
+        %td -
+        %td -
+
+    %tbody
+      %tr
+        %td= DateTime.now.strftime("%B %d, %Y")
+        %td []
+        %td x

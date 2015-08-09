@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-  def dashboard
-    @workouts = current_user.workouts
+  def start
   end
 end
