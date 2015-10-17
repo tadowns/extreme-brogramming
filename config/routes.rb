@@ -11,4 +11,11 @@ Rails.application.routes.draw do
 
   resources :exercise_types
   resources :workout_types
+
+  namespace :api do
+    namespace :v1 do
+      get '/workout_types' => 'workout_types#index'
+      post '/workout_types' => 'workout_types#create'
+    end
+  end
 end

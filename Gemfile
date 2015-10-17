@@ -13,6 +13,7 @@ gem 'devise'
 gem 'flutie'
 gem 'decent_exposure'
 gem 'react-rails', '~> 1.0'
+gem 'rails-api'
 
 gem 'annotate', '~> 2.6.6', group: :development
 

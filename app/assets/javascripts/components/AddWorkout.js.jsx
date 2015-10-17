@@ -17,14 +17,31 @@ window.LiftKit.components.AddWorkout = React.createClass({
 
     var newState = React.addons.update(this.state, {
       exercises: {
-        $push: [{ sets: setsNode.value, reps: repsNode.value }]
+        $push: [{ exercise_type_id: 1, sets: setsNode.value, reps: repsNode.value }]
       }
     });
 
     this.setState(newState);
 
-    setsNode.value = '';
-    repsNode.value = '';
+    setsNode.value = "";
+    repsNode.value = "";
+  },
+
+  createWorkoutType: function(event) {
+    event.preventDefault();
+
+    var nameNode = React.findDOMNode(this.refs.nameInput);
+
+    var postData = {
+      workout_type: {
+        name: nameNode.value,
+        workout_exercises_attributes: this.state.exercises
+      }
+    };
+
+    $.post(window.LiftKit.apiEndpoint + "workout_types", postData, function(data) {
+      window.location = "/start";
+    });
   },
 
   render: function() {
@@ -52,7 +69,7 @@ window.LiftKit.components.AddWorkout = React.createClass({
         </p>
 
         <form>
-          <input type="text" onKeyPress={this.cancelEnter} placeholder="name of workout" />
+          <input ref="nameInput" onKeyPress={this.cancelEnter} type="text" placeholder="name of workout" />
 
           <hr />
 
@@ -85,7 +102,7 @@ window.LiftKit.components.AddWorkout = React.createClass({
 
           <br />
 
-          <input type="submit" />
+          <input onClick={this.createWorkoutType} type="submit" />
         </form>
       </div>
     );
