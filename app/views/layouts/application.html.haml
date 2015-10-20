@@ -22,6 +22,8 @@
       = yield
 
     %footer
-      2015
+      &copy;
+      = Date.current.year
 
     = javascript_include_tag 'application'
+    = yield(:javascripts)

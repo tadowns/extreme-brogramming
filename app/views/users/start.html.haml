@@ -6,11 +6,19 @@
   %h3 What type of workout are you doing?
   %p
     Click one to begin tracking your workout
-    = link_to 'add workout', '#'
+    = link_to 'add workout', new_workout_type_path
 
-  %ul
-    %li Stronglifts Day A
-    %li Stronglifts Day B
+  %table
+    %thead
+      %tr
+        %th
+        %th Name
+
+    %tbody
+      - workout_types.each do |wt|
+        %tr
+          %td= link_to 'x', workout_type_path(wt), method: :delete
+          %td= wt.name
 
   %hr
 
@@ -23,9 +31,3 @@
         %th Date
         %th -
         %th -
-
-    %tbody
-      %tr
-        %td= DateTime.now.strftime("%B %d, %Y")
-        %td []
-        %td x
