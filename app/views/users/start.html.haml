@@ -13,21 +13,29 @@
       %tr
         %th
         %th Name
+        %th
 
     %tbody
       - workout_types.each do |wt|
         %tr
           %td= link_to 'x', workout_type_path(wt), method: :delete
           %td= wt.name
+          %td= link_to 'start workout', start_workout_path(wt), method: :post
 
   %hr
 
-  %h3 Recent Workouts
-  %p Resume a workout, or manage recent workout sessions.
+  .recent-workouts
+    %h3 Recent Workouts
+    %p Resume a workout, or manage recent workout sessions.
 
-  %table
-    %thead
-      %tr
-        %th Date
-        %th -
-        %th -
+    %table
+      %thead
+        %tr
+          %th Date
+          %th -
+          %th -
+
+      %tbody
+        - workouts.each do |workout|
+          %tr
+            %td= workout.date

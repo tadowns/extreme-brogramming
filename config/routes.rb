@@ -11,6 +11,9 @@ Rails.application.routes.draw do
 
   resources :exercise_types
   resources :workout_types
+  post '/workout_types/:id/workout' => 'workout_types#start_workout', as: :start_workout
+
+  get '/workouts/:id' => 'workouts#show', as: :workout
 
   namespace :api do
     namespace :v1 do

@@ -22,6 +22,15 @@ class WorkoutTypesController < ApplicationController
     end
   end
 
+  def start_workout
+    workout = current_user.workouts.create(
+      workout_type: workout_type,
+      date: DateTime.now
+    )
+
+    redirect_to workout
+  end
+
   private
 
     def workout_type_params
@@ -35,5 +44,9 @@ class WorkoutTypesController < ApplicationController
             :reps
           ]
         ])
+    end
+
+    def workout_type
+      current_user.workout_types.find(params[:id])
     end
 end
