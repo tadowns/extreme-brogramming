@@ -21,7 +21,11 @@ group :development, :test do
   gem 'byebug'
   gem 'web-console', '~> 2.0'
   gem 'spring'
+end
+
+group :test do
+  gem 'poltergeist'
   gem 'rspec-rails', '~> 3.0'
-  gem 'capybara'
   gem 'factory_girl_rails'
+  gem 'capybara'
 end

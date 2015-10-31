@@ -77,7 +77,7 @@ window.LiftKit.components.AddWorkout = React.createClass({
             <h3>Exercises</h3>
 
             <p>
-              <select>
+              <select name="workout">
                 <option>Deadlift</option>
               </select>
               <input ref="setsInput" onKeyPress={this.cancelEnter} type="text" placeholder="sets" />
