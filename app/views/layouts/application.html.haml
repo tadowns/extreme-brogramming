@@ -18,7 +18,7 @@
         = link_to "signup", new_user_registration_path
         = link_to "signin", new_user_session_path
 
-    %main
+    %main{ class: body_class }
       = yield
 
     %footer
