@@ -23,7 +23,7 @@ describe "Signup page", :type => :feature do
 
       click_button "Sign up"
 
-      expect(page).to have_content("Dashboard")
+      expect(page).to have_content("Start a Workout")
     end
   end
 end
