@@ -12,9 +12,10 @@
 #
 
 class WorkoutType < ActiveRecord::Base
+  belongs_to :user
   has_many :workout_exercises, dependent: :destroy
   has_many :exercise_types, through: :workout_exercises
-  belongs_to :user
+  has_many :workouts, dependent: :destroy
 
   accepts_nested_attributes_for :workout_exercises, allow_destroy: true
 
