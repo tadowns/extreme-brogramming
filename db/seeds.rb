@@ -3,6 +3,7 @@ exercise_types = [
     { name: "Overhead Press" },
     { name: "Squat" },
     { name: "Deadlift" },
-    { name: "Bent Over Row" }
+    { name: "Barbell Row" }
 ]
+
 ExerciseType.create(exercise_types)

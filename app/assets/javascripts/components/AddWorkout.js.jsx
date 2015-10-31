@@ -12,12 +12,13 @@ window.LiftKit.components.AddWorkout = React.createClass({
   addExercise: function(event) {
     event.preventDefault();
 
+    var exerciseNode = React.findDOMNode(this.refs.exerciseInput);
     var setsNode = React.findDOMNode(this.refs.setsInput);
     var repsNode = React.findDOMNode(this.refs.repsInput);
 
     var newState = React.addons.update(this.state, {
       exercises: {
-        $push: [{ exercise_type_id: 1, sets: setsNode.value, reps: repsNode.value }]
+        $push: [{ exercise_type_id: exerciseNode.value, sets: setsNode.value, reps: repsNode.value }]
       }
     });
 
@@ -45,13 +46,25 @@ window.LiftKit.components.AddWorkout = React.createClass({
   },
 
   render: function() {
+    var _that = this;
+
     var ExerciseNodes = this.state.exercises.map(function(exercise, index) {
+      var exerciseName = _that.props.exerciseTypes.filter(function(exerciseType) {
+        return exerciseType[0] == exercise.exercise_type_id;
+      })[0][1];
+
       return (
         <tr key={"exercise_" + index}>
-          <td>{"Deadlift"}</td>
+          <td>{exerciseName}</td>
           <td>{exercise.sets}</td>
           <td>{exercise.reps}</td>
         </tr>
+      )
+    });
+
+    var ExerciseTypeNodes = this.props.exerciseTypes.map(function(exerciseType) {
+      return (
+        <option value={exerciseType[0]}>{exerciseType[1]}</option>
       )
     });
 
@@ -77,8 +90,9 @@ window.LiftKit.components.AddWorkout = React.createClass({
             <h3>Exercises</h3>
 
             <p>
-              <select name="workout">
-                <option>Deadlift</option>
+              <select ref="exerciseInput" name="exercise">
+                <option selected disabled value="">Choose Exercise</option>
+                {ExerciseTypeNodes}
               </select>
               <input ref="setsInput" onKeyPress={this.cancelEnter} type="text" placeholder="sets" />
               <input ref="repsInput" onKeyPress={this.cancelEnter} type="text" placeholder="reps" />
@@ -95,7 +109,11 @@ window.LiftKit.components.AddWorkout = React.createClass({
               </thead>
 
               <tbody>
-                {ExerciseNodes}
+                { this.state.exercises ?
+                  ExerciseNodes
+                  :
+                  <tr><td colSpan='3'>No Exercises have been added</td></tr>
+                }
               </tbody>
             </table>
           </div>
