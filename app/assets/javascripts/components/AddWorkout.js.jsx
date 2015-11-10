@@ -69,27 +69,26 @@ window.LiftKit.components.AddWorkout = React.createClass({
     });
 
     return (
-      <div>
+      <article>
         <h1>Add a workout</h1>
 
-        <p>
+        <small>
           Workouts group exercises together with a common name, so when you are
           ready to work out,
           <br />
           they provide a template to keep track of progress for a workout.
           <br />
           Exercises can be added and removed from workouts when tracking them.
-        </p>
+        </small>
 
         <form>
-          <input ref="nameInput" onKeyPress={this.cancelEnter} type="text" placeholder="name of workout" />
+          <label>Workout Name</label>
+          <input ref="nameInput" onKeyPress={this.cancelEnter} type="text" />
 
-          <hr />
-
-          <div className="exercises">
+          <section className="exercises">
             <h3>Exercises</h3>
 
-            <p>
+            <fieldset>
               <select ref="exerciseInput" name="exercise">
                 <option selected disabled value="">Choose Exercise</option>
                 {ExerciseTypeNodes}
@@ -97,7 +96,7 @@ window.LiftKit.components.AddWorkout = React.createClass({
               <input ref="setsInput" onKeyPress={this.cancelEnter} type="text" placeholder="sets" />
               <input ref="repsInput" onKeyPress={this.cancelEnter} type="text" placeholder="reps" />
               <a href onClick={this.addExercise}>Add exercise</a>
-            </p>
+            </fieldset>
 
             <table>
               <thead>
@@ -109,20 +108,20 @@ window.LiftKit.components.AddWorkout = React.createClass({
               </thead>
 
               <tbody>
-                { this.state.exercises ?
+                { this.state.exercises.length > 0 ?
                   ExerciseNodes
                   :
                   <tr><td colSpan='3'>No Exercises have been added</td></tr>
                 }
               </tbody>
             </table>
-          </div>
+          </section>
 
           <br />
 
           <input onClick={this.createWorkoutType} type="submit" />
         </form>
-      </div>
+      </article>
     );
   }
 });
