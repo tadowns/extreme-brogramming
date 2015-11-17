@@ -1,0 +1,14 @@
+.auth {
+  @include container();
+
+  width: 300px;
+  margin: 0 auto;
+
+  form {
+    margin-bottom: 12px;
+  }
+
+  form input {
+    margin-bottom: 16px;
+  }
+}

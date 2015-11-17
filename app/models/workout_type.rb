@@ -13,7 +13,7 @@
 
 class WorkoutType < ActiveRecord::Base
   belongs_to :user
-  has_many :workout_exercises, dependent: :destroy
+  has_many :workout_exercises, inverse_of: :workout_type, dependent: :destroy
   has_many :exercise_types, through: :workout_exercises
   has_many :workouts, dependent: :destroy
 

@@ -2,9 +2,9 @@ class WorkoutTypesController < ApplicationController
   expose(:workout_type)
 
   def create
-    workout_type = current_user.workout_types.create(workout_type_params)
+    workout_type.attributes(workout_type_params)
 
-    if workout_type.persisted?
+    if workout_type.save
       redirect_to start_path, success: 'Workout added'
     else
       render 'new'
@@ -47,6 +47,6 @@ class WorkoutTypesController < ApplicationController
     end
 
     def workout_type
-      current_user.workout_types.find(params[:id])
+      current_user.workout_types.find_by(id: params[:id]) || current_user.workout_types.build
     end
 end

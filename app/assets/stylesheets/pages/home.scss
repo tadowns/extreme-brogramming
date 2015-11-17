@@ -1,0 +1,6 @@
+.pages-home {
+  article {
+    @include container;
+    text-align: center;
+  }
+}

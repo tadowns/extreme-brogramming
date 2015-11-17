@@ -1,28 +1,16 @@
 require 'rails_helper'
 
-describe "User dashboard page", :type => :feature do
+describe "User dashboard page" do
   subject(:user) { create(:user) }
 
   before(:each) do
     login_as(user, scope: :user)
   end
 
-  it 'has the title "Start a Workout"' do
+  it 'navigates to create workout type page', js: true do
     visit start_path(user)
-    expect(page).to have_content("Start a Workout")
-  end
-
-  it 'doesnt have the link for "signup"' do
-    visit start_path(user)
-    expect(page).to_not have_content("signup")
-  end
-
-  context 'when react is needed', js: true do
-    it 'navigates to create workout type page' do
-      visit start_path(user)
-      click_link 'add workout'
-      expect(page).to have_content("Add a workout")
-    end
+    click_link 'add workout'
+    expect(page).to have_content("Add a workout")
   end
 
   context 'when a workout type is available' do
@@ -42,7 +30,7 @@ describe "User dashboard page", :type => :feature do
     end
 
     context 'when a workout is started' do
-      subject(:workout) { create(:workout, user: user, date: DateTime.now) }
+      subject(:workout) { create(:workout, user: user, workout_type: workout_type, date: DateTime.now) }
 
       it 'is shown on the dashboard' do
         workout
@@ -54,13 +42,25 @@ describe "User dashboard page", :type => :feature do
       end
 
       it 'shows a max of 10 recent workouts' do
-        11.times { create(:workout, user: user) }
+        11.times { create(:workout, user: user, workout_type: workout_type ) }
 
         visit start_path(user)
 
         within '.recent-workouts tbody' do
           expect(page).to have_selector('tr', count: 10)
         end
+      end
+    end
+
+    context 'when no workout types exist' do
+      it 'should have an empty state message' do
+        visit start_path(user)
+        expect(page).to have_content("No workouts have been created");
+      end
+
+      it 'should not display the recent workout section' do
+        visit start_path(user)
+        expect(page).to_not have_content("Recent Workouts");
       end
     end
   end

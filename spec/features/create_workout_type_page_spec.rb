@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe "Workout type page", type: :feature, js: true do
+describe "Workout type page", js: true do
   subject(:user) { create(:user) }
   subject(:exercise_type) { create(:exercise_type) }
 

@@ -1,17 +1,7 @@
 require 'rails_helper'
 
-describe "Signup page", :type => :feature do
-  it 'has a title "Sign up page"' do
-    visit new_user_registration_path
-    expect(page).to have_content("Sign up page")
-  end
-
-  it 'has a signup form' do
-    visit new_user_registration_path
-    expect(page).to have_selector("form")
-  end
-
-  describe 'when signing up with valid info' do
+describe "Signup page" do
+  context 'when signing up with valid info' do
     it 'brings you to a dashboard page' do
       visit new_user_registration_path
 
@@ -23,7 +13,7 @@ describe "Signup page", :type => :feature do
 
       click_button "Sign up"
 
-      expect(page).to have_content("Start a Workout")
+      expect(current_path).to eq(user_root_path)
     end
   end
 end

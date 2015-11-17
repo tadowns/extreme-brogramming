@@ -1,7 +1,11 @@
-%h1= "Workout: #{workout.name}"
-%h3= workout.date.strftime('%b %d, %Y @ %I:%M%P')
+%article
+  %h1= "Workout: #{workout.name}"
+  %small= workout.date.strftime('%b %d, %Y @ %I:%M%P')
 
-.workout-types
-  %h2 Exercises
-  - workout_exercises.each do |workout_exercise|
-    %p= workout_exercise.name
+  %section.workout-types
+    %h3 Exercises
+
+    %section
+      %ul
+        - workout_exercises.each do |workout_exercise|
+          %li= workout_exercise.exercise_type_name
