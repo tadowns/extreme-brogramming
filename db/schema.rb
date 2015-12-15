@@ -11,22 +11,42 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150809141945) do
+ActiveRecord::Schema.define(version: 20151214234327) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "exercise_types", force: :cascade do |t|
+  create_table "exercises", force: :cascade do |t|
     t.string "name"
   end
 
-  create_table "exercises", force: :cascade do |t|
-    t.integer "workout_id"
-    t.integer "workout_exercise_id"
+  create_table "lifts", force: :cascade do |t|
+    t.integer "seshion_id"
+    t.integer "exercise_id"
   end
 
-  add_index "exercises", ["workout_exercise_id"], name: "index_exercises_on_workout_exercise_id", using: :btree
-  add_index "exercises", ["workout_id"], name: "index_exercises_on_workout_id", using: :btree
+  add_index "lifts", ["exercise_id"], name: "index_lifts_on_exercise_id", using: :btree
+  add_index "lifts", ["seshion_id"], name: "index_lifts_on_seshion_id", using: :btree
+
+  create_table "seshions", force: :cascade do |t|
+    t.integer  "workout_id"
+    t.integer  "user_id"
+    t.datetime "date"
+  end
+
+  add_index "seshions", ["date"], name: "index_seshions_on_date", using: :btree
+  add_index "seshions", ["user_id"], name: "index_seshions_on_user_id", using: :btree
+  add_index "seshions", ["workout_id"], name: "index_seshions_on_workout_id", using: :btree
+
+  create_table "sets", force: :cascade do |t|
+    t.integer  "lift_id"
+    t.integer  "reps"
+    t.float    "weight"
+    t.datetime "start_time"
+    t.datetime "end_time"
+  end
+
+  add_index "sets", ["lift_id"], name: "index_sets_on_lift_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -47,40 +67,20 @@ ActiveRecord::Schema.define(version: 20150809141945) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "workout_exercises", force: :cascade do |t|
-    t.integer "workout_type_id"
-    t.integer "exercise_type_id"
-    t.integer "sets"
-    t.integer "reps"
+    t.integer "workout_id"
+    t.integer "exercise_id"
+    t.integer "target_sets"
+    t.integer "target_reps"
   end
 
-  add_index "workout_exercises", ["exercise_type_id"], name: "index_workout_exercises_on_exercise_type_id", using: :btree
-  add_index "workout_exercises", ["workout_type_id"], name: "index_workout_exercises_on_workout_type_id", using: :btree
+  add_index "workout_exercises", ["exercise_id"], name: "index_workout_exercises_on_exercise_id", using: :btree
+  add_index "workout_exercises", ["workout_id"], name: "index_workout_exercises_on_workout_id", using: :btree
 
-  create_table "workout_sets", force: :cascade do |t|
-    t.integer  "exercise_id"
-    t.integer  "reps"
-    t.float    "weight"
-    t.datetime "start_time"
-    t.datetime "end_time"
-  end
-
-  add_index "workout_sets", ["exercise_id"], name: "index_workout_sets_on_exercise_id", using: :btree
-
-  create_table "workout_types", force: :cascade do |t|
+  create_table "workouts", force: :cascade do |t|
     t.string  "name"
     t.integer "user_id"
   end
 
-  add_index "workout_types", ["user_id"], name: "index_workout_types_on_user_id", using: :btree
-
-  create_table "workouts", force: :cascade do |t|
-    t.integer  "workout_type_id"
-    t.integer  "user_id"
-    t.datetime "date"
-  end
-
-  add_index "workouts", ["date"], name: "index_workouts_on_date", using: :btree
   add_index "workouts", ["user_id"], name: "index_workouts_on_user_id", using: :btree
-  add_index "workouts", ["workout_type_id"], name: "index_workouts_on_workout_type_id", using: :btree
 
 end

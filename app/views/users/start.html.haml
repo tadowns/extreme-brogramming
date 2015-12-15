@@ -11,24 +11,24 @@
           %th Start Workout
 
       %tbody
-        - if workout_types.present?
-          - workout_types.each do |wt|
+        - if workouts.present?
+          - workouts.each do |workout|
             %tr
               %td
-                = link_to 'x', workout_type_path(wt), method: :delete
-                = wt.name
+                = link_to 'x', workout_path(workout), method: :delete
+                = workout.name
 
-              %td= link_to 'start workout', start_workout_path(wt), method: :post
+              %td= link_to 'start workout', start_seshion_path(workout), method: :post
         - else
           %tr
             %td{ colspan: 3 } No workouts have been created!
         %tr
-          %td{ colspan: 3 }= link_to 'add workout', new_workout_type_path
+          %td{ colspan: 3 }= link_to 'add workout', new_workout_path
 
-- if workout_types.present?
-  %article.recent-workouts
-    %h1 Recent Workouts
-    %small Resume a workout, or manage recent workout sessions.
+- if seshions.present?
+  %article.recent-seshions
+    %h1 Recent Sessions
+    %small Resume a workout session, or manage recent workout sessions.
 
     %section
       %table
@@ -39,10 +39,6 @@
             %th -
 
         %tbody
-          - if workouts.present?
-            - workouts.each do |workout|
-              %tr
-                %td= workout.date
-          - else
+          - seshions.each do |seshion|
             %tr
-              %td{ colspan: 3 } No workouts have been started!
+              %td= link_to seshion.formatted_date, seshion_path(seshion)

@@ -9,16 +9,16 @@ Rails.application.routes.draw do
 
   root 'pages#home'
 
-  resources :exercise_types
-  resources :workout_types
-  post '/workout_types/:id/workout' => 'workout_types#start_workout', as: :start_workout
+  resources :exercises
+  resources :workouts
+  post '/workouts/:id/start' => 'workouts#start_seshion', as: :start_seshion
 
-  get '/workouts/:id' => 'workouts#show', as: :workout
+  get '/sessions/:id' => 'seshions#show', as: :seshion
 
   namespace :api do
     namespace :v1 do
-      get '/workout_types' => 'workout_types#index'
-      post '/workout_types' => 'workout_types#create'
+      get '/workouts' => 'workouts#index'
+      post '/workouts' => 'workouts#create'
     end
   end
 end

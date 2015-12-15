@@ -2,25 +2,22 @@
 #
 # Table name: workout_exercises
 #
-#  id               :integer          not null, primary key
-#  workout_type_id  :integer
-#  exercise_type_id :integer
-#  sets             :integer
-#  reps             :integer
+#  id          :integer          not null, primary key
+#  workout_id  :integer
+#  exercise_id :integer
+#  target_sets :integer
+#  target_reps :integer
 #
 # Indexes
 #
-#  index_workout_exercises_on_exercise_type_id  (exercise_type_id)
-#  index_workout_exercises_on_workout_type_id   (workout_type_id)
+#  index_workout_exercises_on_exercise_id  (exercise_id)
+#  index_workout_exercises_on_workout_id   (workout_id)
 #
 
 class WorkoutExercise < ActiveRecord::Base
-  belongs_to :workout_type, inverse_of: :workout_exercises
-  belongs_to :exercise_type
+  belongs_to :workout, inverse_of: :workout_exercises
+  belongs_to :exercise
 
-  delegate :name, to: :exercise_type, prefix: true
-  delegate :name, to: :workout_type, prefix: true
-
-  validates_presence_of :sets, :reps, :workout_type, :exercise_type
-  validates_numericality_of :sets, :reps, greater_than: 0
+  validates_presence_of :target_sets, :target_reps, :workout, :exercise
+  validates_numericality_of :target_sets, :target_reps, greater_than: 0
 end

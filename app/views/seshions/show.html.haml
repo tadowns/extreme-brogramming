@@ -1,0 +1,11 @@
+%article
+  %h1= "Workout: #{workout.name}"
+  %small= seshion.formatted_date
+
+  %section.seshion-exercises
+    %h3 Exercises
+
+    %section
+      %ul
+        - seshion_exercises.each do |seshion_exercises|
+          %li= seshion_exercises.name
