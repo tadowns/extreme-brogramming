@@ -1,0 +1,21 @@
+.users-start {
+  h1, h3, p {
+    margin: 0;
+  }
+
+  article {
+    @include container;
+
+    section {
+      margin-top: 22px;
+    }
+  }
+
+  article.workouts {
+    margin-bottom: 56px;
+
+    table tbody tr:last-child td {
+      padding-top: 8px;
+    }
+  }
+}

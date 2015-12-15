@@ -18,7 +18,7 @@ window.LiftKit.components.AddWorkout = React.createClass({
 
     var newState = React.addons.update(this.state, {
       exercises: {
-        $push: [{ exercise_type_id: exerciseNode.value, sets: setsNode.value, reps: repsNode.value }]
+        $push: [{ exercise_id: exerciseNode.value, target_sets: setsNode.value, target_reps: repsNode.value }]
       }
     });
 
@@ -28,19 +28,19 @@ window.LiftKit.components.AddWorkout = React.createClass({
     repsNode.value = "";
   },
 
-  createWorkoutType: function(event) {
+  createWorkout: function(event) {
     event.preventDefault();
 
     var nameNode = React.findDOMNode(this.refs.nameInput);
 
     var postData = {
-      workout_type: {
+      workout: {
         name: nameNode.value,
         workout_exercises_attributes: this.state.exercises
       }
     };
 
-    $.post(window.LiftKit.apiEndpoint + "workout_types", postData, function(data) {
+    $.post(window.LiftKit.apiEndpoint + "workouts", postData, function(data) {
       window.location = "/start";
     });
   },
@@ -48,56 +48,55 @@ window.LiftKit.components.AddWorkout = React.createClass({
   render: function() {
     var _that = this;
 
-    var ExerciseNodes = this.state.exercises.map(function(exercise, index) {
-      var exerciseName = _that.props.exerciseTypes.filter(function(exerciseType) {
-        return exerciseType[0] == exercise.exercise_type_id;
+    var WorkoutExerciseNodes = this.state.exercises.map(function(exercise, index) {
+      var exerciseName = _that.props.exercises.filter(function(_exercise) {
+        return _exercise[0] == exercise.exercise_id;
       })[0][1];
 
       return (
         <tr key={"exercise_" + index}>
           <td>{exerciseName}</td>
-          <td>{exercise.sets}</td>
-          <td>{exercise.reps}</td>
+          <td>{exercise.target_sets}</td>
+          <td>{exercise.target_reps}</td>
         </tr>
       )
     });
 
-    var ExerciseTypeNodes = this.props.exerciseTypes.map(function(exerciseType) {
+    var ExerciseNodes = this.props.exercises.map(function(exercise) {
       return (
-        <option value={exerciseType[0]}>{exerciseType[1]}</option>
+        <option value={exercise[0]}>{exercise[1]}</option>
       )
     });
 
     return (
-      <div>
+      <article>
         <h1>Add a workout</h1>
 
-        <p>
+        <small>
           Workouts group exercises together with a common name, so when you are
           ready to work out,
           <br />
           they provide a template to keep track of progress for a workout.
           <br />
           Exercises can be added and removed from workouts when tracking them.
-        </p>
+        </small>
 
         <form>
-          <input ref="nameInput" onKeyPress={this.cancelEnter} type="text" placeholder="name of workout" />
+          <label>Workout Name</label>
+          <input ref="nameInput" onKeyPress={this.cancelEnter} type="text" />
 
-          <hr />
-
-          <div className="exercises">
+          <section className="exercises">
             <h3>Exercises</h3>
 
-            <p>
+            <fieldset>
               <select ref="exerciseInput" name="exercise">
                 <option selected disabled value="">Choose Exercise</option>
-                {ExerciseTypeNodes}
+                {ExerciseNodes}
               </select>
               <input ref="setsInput" onKeyPress={this.cancelEnter} type="text" placeholder="sets" />
               <input ref="repsInput" onKeyPress={this.cancelEnter} type="text" placeholder="reps" />
               <a href onClick={this.addExercise}>Add exercise</a>
-            </p>
+            </fieldset>
 
             <table>
               <thead>
@@ -109,20 +108,20 @@ window.LiftKit.components.AddWorkout = React.createClass({
               </thead>
 
               <tbody>
-                { this.state.exercises ?
-                  ExerciseNodes
+                { this.state.exercises.length > 0 ?
+                  WorkoutExerciseNodes
                   :
                   <tr><td colSpan='3'>No Exercises have been added</td></tr>
                 }
               </tbody>
             </table>
-          </div>
+          </section>
 
           <br />
 
-          <input onClick={this.createWorkoutType} type="submit" />
+          <input onClick={this.createWorkout} type="submit" />
         </form>
-      </div>
+      </article>
     );
   }
 });

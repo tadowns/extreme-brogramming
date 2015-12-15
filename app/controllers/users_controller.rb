@@ -1,3 +1,4 @@
 class UsersController < ApplicationController
-  expose(:workout_types) { current_user.workout_types }
+  expose(:workouts) { current_user.workouts }
+  expose(:seshions) { current_user.seshions.limit(10) }
 end

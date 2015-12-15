@@ -1,33 +1,44 @@
-.contain
-  %h1 Start a Workout
-
-  %hr
-
-  %h3 What type of workout are you doing?
-  %p
+%article.workouts
+  %h1 Workouts
+  %small
     Click one to begin tracking your workout
-    = link_to 'add workout', new_workout_type_path
 
-  %table
-    %thead
-      %tr
-        %th
-        %th Name
-
-    %tbody
-      - workout_types.each do |wt|
+  %section
+    %table
+      %thead
         %tr
-          %td= link_to 'x', workout_type_path(wt), method: :delete
-          %td= wt.name
+          %th Name
+          %th Start Workout
 
-  %hr
+      %tbody
+        - if workouts.present?
+          - workouts.each do |workout|
+            %tr
+              %td
+                = link_to 'x', workout_path(workout), method: :delete
+                = workout.name
 
-  %h3 Recent Workouts
-  %p Resume a workout, or manage recent workout sessions.
+              %td= link_to 'start workout', start_seshion_path(workout), method: :post
+        - else
+          %tr
+            %td{ colspan: 3 } No workouts have been created!
+        %tr
+          %td{ colspan: 3 }= link_to 'add workout', new_workout_path
 
-  %table
-    %thead
-      %tr
-        %th Date
-        %th -
-        %th -
+- if seshions.present?
+  %article.recent-seshions
+    %h1 Recent Sessions
+    %small Resume a workout session, or manage recent workout sessions.
+
+    %section
+      %table
+        %thead
+          %tr
+            %th Date
+            %th -
+            %th -
+
+        %tbody
+          - seshions.each do |seshion|
+            %tr
+              %td= link_to seshion.formatted_date, seshion_path(seshion)

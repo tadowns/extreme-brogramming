@@ -1,11 +1,6 @@
 require 'rails_helper'
 
-describe "Home page", :type => :feature do
-  it "has a title, Welcome!" do
-    visit root_path
-    expect(page).to have_content 'Welcome!'
-  end
-
+describe "Home page" do
   it "has a link to signup page" do
     visit root_path
     expect(page).to have_link("signup")
@@ -14,6 +9,6 @@ describe "Home page", :type => :feature do
   it "navigates to signup page when clicking signup" do
     visit root_path
     click_link "signup"
-    expect(page).to have_content("Sign up page")
+    expect(current_path).to eq(new_user_registration_path)
   end
 end

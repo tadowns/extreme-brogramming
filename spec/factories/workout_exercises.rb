@@ -14,10 +14,11 @@
 #  index_workout_exercises_on_workout_id   (workout_id)
 #
 
-class WorkoutExercise < ActiveRecord::Base
-  belongs_to :workout, inverse_of: :workout_exercises
-  belongs_to :exercise
-
-  validates_presence_of :target_sets, :target_reps, :workout, :exercise
-  validates_numericality_of :target_sets, :target_reps, greater_than: 0
+FactoryGirl.define do
+  factory :workout_exercise do |w|
+    target_sets 1
+    target_reps 1
+    workout
+    exercise
+  end
 end

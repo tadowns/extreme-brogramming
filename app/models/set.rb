@@ -14,10 +14,10 @@
 #  index_workout_sets_on_exercise_id  (exercise_id)
 #
 
-class WorkoutSet < ActiveRecord::Base
-  belongs_to :exercise
+class Set < ActiveRecord::Base
+  belongs_to :lift
 
   def completed?
-    self.exercise.try(:workout_exercise).try(:reps) == self.reps
+    self.lift.default_reps == self.reps
   end
 end
