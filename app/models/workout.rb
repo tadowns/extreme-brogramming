@@ -14,7 +14,6 @@
 class Workout < ActiveRecord::Base
   belongs_to :user
   has_many :workout_exercises, inverse_of: :workout, dependent: :destroy
-  has_many :exercises, through: :workout_exercises
   has_many :seshions, dependent: :destroy
 
   accepts_nested_attributes_for :workout_exercises, allow_destroy: true
@@ -26,7 +25,7 @@ class Workout < ActiveRecord::Base
       [
         :name,
         workout_exercises_attributes: [
-          :exercise_id,
+          :name,
           :target_sets,
           :target_reps
         ]

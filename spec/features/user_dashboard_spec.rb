@@ -56,7 +56,7 @@ describe "User dashboard page" do
         visit start_path(user)
 
         within '.recent-seshions' do
-          expect(page).to have_link(seshion.formatted_date, href: seshion_path(seshion))
+          expect(page).to have_link(seshion.formatted_date, href: seshions_path(seshion))
         end
       end
     end

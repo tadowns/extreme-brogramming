@@ -18,14 +18,19 @@ class Seshion < ActiveRecord::Base
   belongs_to :user
   belongs_to :workout
   has_many :lifts, dependent: :destroy
-  has_many :exercises, through: :lifts
 
   def formatted_date
     self.date.try(:strftime, '%b %-d, %Y%l:%M %p')
   end
 
-  def seshion_exercises
-    # Started lifts' exercises and exercises that are part of the workout
-    self.workout.exercises | self.exercises
+  class << self
+    def build_from_workout(workout, user)
+      new(
+        user: user,
+        workout: workout,
+        date: DateTime.now,
+        lifts: workout.workout_exercises.map { |we| Lift.build_from_workout_exercise(we) }
+      )
+    end
   end
 end

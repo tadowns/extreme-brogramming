@@ -4,14 +4,13 @@
 #
 #  id          :integer          not null, primary key
 #  workout_id  :integer
-#  exercise_id :integer
 #  target_sets :integer
 #  target_reps :integer
+#  name        :string
 #
 # Indexes
 #
-#  index_workout_exercises_on_exercise_id  (exercise_id)
-#  index_workout_exercises_on_workout_id   (workout_id)
+#  index_workout_exercises_on_workout_id  (workout_id)
 #
 
 FactoryGirl.define do
@@ -19,6 +18,5 @@ FactoryGirl.define do
     target_sets 1
     target_reps 1
     workout
-    exercise
   end
 end

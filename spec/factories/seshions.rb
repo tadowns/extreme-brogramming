@@ -1,14 +1,17 @@
 # == Schema Information
 #
-# Table name: workouts
+# Table name: seshions
 #
-#  id      :integer          not null, primary key
-#  name    :string
-#  user_id :integer
+#  id         :integer          not null, primary key
+#  workout_id :integer
+#  user_id    :integer
+#  date       :datetime
 #
 # Indexes
 #
-#  index_workouts_on_user_id  (user_id)
+#  index_seshions_on_date        (date)
+#  index_seshions_on_user_id     (user_id)
+#  index_seshions_on_workout_id  (workout_id)
 #
 
 FactoryGirl.define do

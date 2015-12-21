@@ -11,9 +11,10 @@ Rails.application.routes.draw do
 
   resources :exercises
   resources :workouts
-  post '/workouts/:id/start' => 'workouts#start_seshion', as: :start_seshion
+  post '/workouts/:workout_id/session' => 'seshions#create', as: :create_seshion
 
-  get '/sessions/:id' => 'seshions#show', as: :seshion
+  get '/sessions/:id' => 'seshions#show', as: :seshions
+  post '/sessions/:id/lift' => 'lift#create', as: :create_lift
 
   namespace :api do
     namespace :v1 do

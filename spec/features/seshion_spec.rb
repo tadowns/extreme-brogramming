@@ -4,7 +4,9 @@ describe 'Session feature' do
   subject(:user) { create(:user) }
   subject(:workout_with_workout_exercise) { create(:workout_with_workout_exercise, user: user) }
   subject(:workout_exercise) { workout_with_workout_exercise.workout_exercises.first }
-  subject(:seshion) { create(:seshion, workout: workout_with_workout_exercise, user: user ) }
+  subject(:seshion) do
+    Seshion.build_from_workout(workout_with_workout_exercise, user).tap { |s| s.save! }
+  end
 
   before(:each) do
     login_as(user, scope: :user)
@@ -46,10 +48,10 @@ describe 'Session feature' do
     context 'on the seshion page' do
       it 'should list the associated workout exercises' do
         seshion
-        visit seshion_path(seshion)
+        visit seshions_path(seshion)
 
         within '.seshion-exercises' do
-          expect(page).to have_content seshion.seshion_exercises.first.name
+          expect(page).to have_content seshion.lifts.first.name
         end
       end
     end

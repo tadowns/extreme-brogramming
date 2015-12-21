@@ -18,7 +18,7 @@ window.LiftKit.components.AddWorkout = React.createClass({
 
     var newState = React.addons.update(this.state, {
       exercises: {
-        $push: [{ exercise_id: exerciseNode.value, target_sets: setsNode.value, target_reps: repsNode.value }]
+        $push: [{ name: exerciseNode.value, target_sets: setsNode.value, target_reps: repsNode.value }]
       }
     });
 
@@ -49,13 +49,11 @@ window.LiftKit.components.AddWorkout = React.createClass({
     var _that = this;
 
     var WorkoutExerciseNodes = this.state.exercises.map(function(exercise, index) {
-      var exerciseName = _that.props.exercises.filter(function(_exercise) {
-        return _exercise[0] == exercise.exercise_id;
-      })[0][1];
+      var exerciseName = exercise;
 
       return (
         <tr key={"exercise_" + index}>
-          <td>{exerciseName}</td>
+          <td>{exerciseName.name}</td>
           <td>{exercise.target_sets}</td>
           <td>{exercise.target_reps}</td>
         </tr>
@@ -64,7 +62,7 @@ window.LiftKit.components.AddWorkout = React.createClass({
 
     var ExerciseNodes = this.props.exercises.map(function(exercise) {
       return (
-        <option value={exercise[0]}>{exercise[1]}</option>
+        <option value={exercise}>{exercise}</option>
       )
     });
 
