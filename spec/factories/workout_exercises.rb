@@ -14,7 +14,8 @@
 #
 
 FactoryGirl.define do
-  factory :workout_exercise do |w|
+  factory :workout_exercise do |we|
+    we.sequence(:name) { |n| "exercise_#{n}" }
     target_sets 1
     target_reps 1
     workout

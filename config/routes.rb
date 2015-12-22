@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   post '/workouts/:workout_id/session' => 'seshions#create', as: :create_seshion
 
   get '/sessions/:id' => 'seshions#show', as: :seshions
-  post '/sessions/:id/lift' => 'lift#create', as: :create_lift
+  get '/sessions/:seshion_id/lifts/:id' => 'lifts#show', as: :seshion_lifts
 
   namespace :api do
     namespace :v1 do

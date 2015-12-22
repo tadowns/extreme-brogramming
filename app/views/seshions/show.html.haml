@@ -7,5 +7,6 @@
 
     %section
       %ul
-        - lifts.each do |lifts|
-          %li= lifts.name
+        - lifts.each do |lift|
+          = link_to seshion_lifts_path(seshion, lift) do
+            %li= lift.name

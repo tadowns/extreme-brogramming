@@ -21,5 +21,13 @@ FactoryGirl.define do
         create(:workout_exercise, workout: workout)
       end
     end
+
+    factory :workout_with_workout_exercises do
+      after(:create) do |workout|
+        3.times do
+          create(:workout_exercise, workout: workout)
+        end
+      end
+    end
   end
 end

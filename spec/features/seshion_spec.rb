@@ -4,9 +4,6 @@ describe 'Session feature' do
   subject(:user) { create(:user) }
   subject(:workout_with_workout_exercise) { create(:workout_with_workout_exercise, user: user) }
   subject(:workout_exercise) { workout_with_workout_exercise.workout_exercises.first }
-  subject(:seshion) do
-    Seshion.build_from_workout(workout_with_workout_exercise, user).tap { |s| s.save! }
-  end
 
   before(:each) do
     login_as(user, scope: :user)
@@ -31,11 +28,16 @@ describe 'Session feature' do
       workout_with_workout_exercise
       visit start_path
       click_link 'start workout'
+      seshion = workout_with_workout_exercise.seshions.first
       expect(page).to have_selector "h1", text: "Workout: #{seshion.workout.name}"
     end
   end
 
   context 'after starting a seshion' do
+    let(:seshion) do
+      Seshion.build_from_workout(workout_with_workout_exercise, user).tap { |s| s.save! }
+    end
+
     it 'should show up on the dashboard' do
       seshion
       visit start_path
